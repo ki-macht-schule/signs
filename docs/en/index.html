@@ -1,8 +1,3 @@
-#!/bin/bash
-# Reference: https://getbootstrap.com/docs/4.0/components/modal/
-
-start_doc() {
-cat << "EOF"
 <!doctype html>
 <html lang="en">
     <head>
@@ -25,54 +20,39 @@ cat << "EOF"
         <div class="container">
             <div class="row">
             <div class="col-12">
-EOF
-
-if [[ "$1" == de ]]; then
-cat << EOF
-                <h1>KI & Mobilität Beispielbilder</h1>
-                <p><a class="btn btn-primary" href="${2}en/index.html">English Version</a></p>
-                <p>Für diese Demo benötigst du einen Laptop/PC mit Webcam, sowie ein Smartphone, Tablet, oder einen Drucker, um Bilder von Verkehrsschildern auszudrucken, die wir dann später klassifizieren können.</p>
-                <ul>
-                    <li>Öffne <a href="https://teachablemachine.withgoogle.com/train/image" target="_blank">die Teachable Machine</a> auf deinem PC oder Tablet.</li>
-                    <li>Zeichne Trainingsdaten auf, indem du die Bilder unten auf der Seite in die Kamera hältst. Achte dabei darauf, immer nur ein Bild zu zeigen. Dafür kannst du die Bilder durch anklicken vergrößern.</li>
-                </ul>
-EOF
-fi
-
-if [[ "$1" == en ]]; then
-cat << EOF
             <div class="col-12">
                 <h1>AI and Mobility Example Images</h1>
-                <p><a class="btn btn-primary" href="$2de/index.html">German Version</a></p>
+                <p><a class="btn btn-primary" href="../de/index.html">German Version</a></p>
                 <p>To use this demo, you need a laptop/computer with a webcam. You also need a smartphone, tablet or a printer. Below are some traffic signs we will use for building an image classication model.</p>
                 <ul>
                     <li>Open <a href="https://teachablemachine.withgoogle.com/train/image" target="_blank">the Teachable Machine</a> on your computer.</li>
                     <li>Record training data of the traffic signs below. Each sign can be added as a single class. You can focus and enlarge the images by clicking on them.</li>
                 </ul>
-EOF
-fi
-
-cat << "EOF"
             </div>
             </div>
             <div class="row">
             <div class="col-12">
                 <div class="card-group">
-EOF
-}
-
-card_item() {
-cat << EOF
                     <div class="card">
-                        <a data-toggle="modal" data-target="#showImageModal" data-image="$1">
-                            <img src="$1" class="card-img-top" alt="$1">
+                        <a data-toggle="modal" data-target="#showImageModal" data-image="../img/stopp.png">
+                            <img src="../img/stopp.png" class="card-img-top" alt="../img/stopp.png">
                         </a>
                     </div>
-EOF
-}
-
-end_doc() {
-cat << "EOF"
+                    <div class="card">
+                        <a data-toggle="modal" data-target="#showImageModal" data-image="../img/vorfahrt_1.png">
+                            <img src="../img/vorfahrt_1.png" class="card-img-top" alt="../img/vorfahrt_1.png">
+                        </a>
+                    </div>
+                    <div class="card">
+                        <a data-toggle="modal" data-target="#showImageModal" data-image="../img/vorfahrt_2.png">
+                            <img src="../img/vorfahrt_2.png" class="card-img-top" alt="../img/vorfahrt_2.png">
+                        </a>
+                    </div>
+                    <div class="card">
+                        <a data-toggle="modal" data-target="#showImageModal" data-image="../img/vorfahrt_achten.png">
+                            <img src="../img/vorfahrt_achten.png" class="card-img-top" alt="../img/vorfahrt_achten.png">
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -109,21 +89,3 @@ cat << "EOF"
         </script>
     </body>
 </html>
-EOF
-}
-
-build() {
-start_doc $1 $2
-for img in img/*.png; do
-    card_item ${2}${img}
-done
-end_doc
-}
-
-mkdir -p docs/img
-mkdir -p docs/de
-mkdir -p docs/en
-build de "" > docs/index.html
-build de "../" > docs/de/index.html
-build en "../" > docs/en/index.html
-cp img/* docs/img
